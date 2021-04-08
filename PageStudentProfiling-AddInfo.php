@@ -301,6 +301,15 @@
                     }
                 }
 
+                guardianElementValidate = [
+                    document.getElementById("guardianFirstname"),
+                    document.getElementById("guardianMiddlename"),
+                    document.getElementById("guardianLastname"),
+                    document.getElementById("guardianRelationship"),
+                    document.getElementById("guardianContact")
+
+                ];
+
                 if(guardianElementValidate[0].value != "" || guardianElementValidate[1].value != "" || guardianElementValidate[2].value != ""){
                     let guardianValidateLength = guardianElementValidate.length;
                     for(let i = 0; i < guardianValidateLength; i++){

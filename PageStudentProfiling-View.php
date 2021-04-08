@@ -186,7 +186,7 @@
                             <span style="flex:50%; display:flex; width:90%;">
                                 <div class="info-whitebox" style="flex:50%;margin-right:1%;">
                                     <p>
-                                    <?php echo $student['height']."cm"; ?>
+                                    <?php echo $student['heightft']."'"." ".$student['heightin']."\""; ?>
                                      </p>
                                     <div class="box">
                                         <div class="info-whitebox-label" style="left:-49px;">
@@ -426,22 +426,48 @@
                             </td>
                         </tr>
                         <?php 
-                            //SESSION PHP GOES HERE
+                            $record = mysqli_query($link,"SELECT * FROM sessionrecord WHERE involvedid = $id");
+                                    while($sessionRecord=mysqli_fetch_array($record)):
+                                        $currentSessionId = $sessionRecord['sessionid'];
+                                        $sessionList = mysqli_query($link,"SELECT * FROM session WHERE id = $currentSessionId");
+                                        while($session=mysqli_fetch_array($sessionList)):
                         ?>
                         <tr>
                             <td class="session-counselor" style="width:30%;">
-                                Jean Morgan
+                                    <?php
+                                            $counselorId = $session['counselorid'];
+                                            $counselorList = mysqli_query($link,"SELECT * FROM counselor WHERE id=$counselorId");
+                                            $counselor = mysqli_fetch_array($counselorList);
+                                            echo $counselor['firstname']." ".$counselor['lastname'];
+                                    ?>
                             </td>
                             <td class="session-date" style="width:25%;">
-                                07/14/2021
+                                    <?php   echo $session['date']; ?>
                             </td>
                             <td class="session-time" style="width:25%;">
-                                8AM
+                                    <?php   echo $session['time']; ?>
                             </td>
                             <td class="session-status" style="width:20%;">
-                                Ongoing
+                                <?php
+                                    date_default_timezone_set('Asia/Singapore');
+                                    $currentDate = strtotime(date("Y-m-d"));
+                                    $currentTime = strtotime(date('h:i:s'));
+                                    if(strtotime($session['date']) > $currentDate){
+                                        echo 'Upcoming';
+                                    }
+                                    else if(strtotime($session['date']) == $currentDate && strtotime($session['time']) > $currentTime){
+                                        echo 'Upcoming Today';
+                                    }
+                                    else{
+                                        echo 'Finished';
+                                    }
+                                ?>
                             </td>
                         </tr>
+                        <?php
+                                        endwhile;
+                                    endwhile;
+                        ?>
                     </table>
                 </div>
                 <div class="list-button">

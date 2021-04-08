@@ -192,16 +192,8 @@
                             </span>
                             <span>
                                 <label style="margin-right:5%;">Height</label>
-                                <?php 
-                                    $heightCm = $student['height'];
-                                    $heightFt = $heightCm / 30.48;
-                                    $heightIn = ($heightCm%30.48) / 2.54;
-                                    if(floor($heightIn)==0){
-                                        $heightFt = ceil($heightFt);
-                                    }
-                                ?>
-                                <label style="flex:2%; margin-right:1%;">ft.</label><input type="text" id="heightFt" name="heightFt" style="margin-right:1%;" value="<?php echo floor($heightFt) ?>">
-                                <label style="flex:2%; margin-right:1%;">in.</label><input type="text" id="heightIn" name="heightIn" style="margin-right:5%;" value="<?php echo floor($heightIn) ?>">
+                                <label style="flex:2%; margin-right:1%;">ft.</label><input type="text" id="heightFt" name="heightFt" style="margin-right:1%;" value="<?php echo $student['heightft']; ?>">
+                                <label style="flex:2%; margin-right:1%;">in.</label><input type="text" id="heightIn" name="heightIn" style="margin-right:5%;" value="<?php echo $student['heightin']; ?>">
                                 <label style="flex:2%; margin-right:1%;">Weight kg.</label><input type="text" id="weight" name="weight" value="<?php echo $student['weight'] ?>">
                             </span>
                             <span><label>Complexion</label><input type="text" id="complexion" name="complexion" value="<?php echo $student['complexion'] ?>"></span>
