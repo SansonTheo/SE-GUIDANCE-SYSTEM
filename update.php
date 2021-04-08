@@ -25,8 +25,6 @@
 	$heightFt = mysqli_real_escape_string($link,$_POST['heightFt']);
 	$heightIn = mysqli_real_escape_string($link,$_POST['heightIn']);
 	$weight = mysqli_real_escape_string($link,$_POST['weight']);
-	//HEIGHT NEEDS CALCULATION
-	$heightCm = floor(($heightFt * 30.48) + ($heightIn * 2.54));
 	$complexion = mysqli_real_escape_string($link,$_POST['complexion']);
 	$ethnicity = mysqli_real_escape_string($link,$_POST['ethnicity']);
 	$nationality = mysqli_real_escape_string($link,$_POST['nationality']);
@@ -57,7 +55,8 @@
 	$oldstudentStatus = $student['status'];
 	$oldsex = $student['sex'];
 	$oldgender = $student['gender'];
-	$oldheightCm = $student['height'];
+	$oldheightFt = $student['heightft'];
+	$oldheightIn = $student['heightin'];
 	$oldweight = $student['weight'];
 
 	//Father's Info
@@ -237,7 +236,7 @@
 
 	$sqlFather="UPDATE parent SET firstname='$fatherFirstname',middlename='$fatherMiddlename',lastname='$fatherLastname',address='$fatherAddress',occupation='$fatherOccupation',contactno='$fatherContact' WHERE id='$fatherId'";
 	$sqlMother="UPDATE parent SET firstname='$motherFirstname',middlename='$motherMiddlename',lastname='$motherLastname',address='$motherAddress',occupation='$motherOccupation',contactno='$motherContact' WHERE id='$motherId'";
-	$sql="UPDATE student SET firstname='$firstname',middlename='$middlename',lastname='$lastname',birthdate='$birthDate',contactno='$contact',permstreet='$street',permbarangay='$barangay',permcity='$city',permprovince='$province',residencytype='$residencyType',tempstreet='$boarderStreet',tempbarangay='$boarderBarangay',tempcity='$boarderCity',tempprovince='$boarderProvince',studentid='$studentId',college='$college',department='$department',level='$level',status='$studentStatus',sex='$sex',gender='$gender',height='$heightCm',weight='$weight',complexion='$complexion',ethnicity='$ethnicity',nationality='$nationality',religion='$religion',civilstatus='$civilstatus' 
+	$sql="UPDATE student SET firstname='$firstname',middlename='$middlename',lastname='$lastname',birthdate='$birthDate',contactno='$contact',permstreet='$street',permbarangay='$barangay',permcity='$city',permprovince='$province',residencytype='$residencyType',tempstreet='$boarderStreet',tempbarangay='$boarderBarangay',tempcity='$boarderCity',tempprovince='$boarderProvince',studentid='$studentId',college='$college',department='$department',level='$level',status='$studentStatus',sex='$sex',gender='$gender',heightft='$heightFt', heightin='$heightIn',weight='$weight',complexion='$complexion',ethnicity='$ethnicity',nationality='$nationality',religion='$religion',civilstatus='$civilstatus' 
 	WHERE id='$id'";
 
 	//Update for Student
@@ -370,8 +369,8 @@
 		mysqli_query($link,$changequery);
 	}
 
-	if($oldheightCm != $heightCm){
-		$changestr = $changed." HEIGHT ".$from.$oldheightCm."cm".$to.$heightCm."cm";
+	if($oldheightFt != $heightFt || $oldheightIn != $heightIn){
+		$changestr = $changed." HEIGHT ".$from.$oldheightFt."ft. ".$oldheightIn."in.".$to.$heightFt."ft. ".$heightIn."in.";
 		$changequery = "INSERT INTO changerecord(changestr,studentid,datechanged) VALUES('$changestr',$id,NOW())";
 		mysqli_query($link,$changequery);
 	}

@@ -25,8 +25,6 @@
 	$heightFt = mysqli_real_escape_string($link,$_POST['heightFt']);
 	$heightIn = mysqli_real_escape_string($link,$_POST['heightIn']);
 	$weight = mysqli_real_escape_string($link,$_POST['weight']);
-	//HEIGHT NEEDS CALCULATION
-	$heightCm = floor(($heightFt * 30.48) + ($heightIn * 2.54));
 	$complexion = mysqli_real_escape_string($link,$_POST['complexion']);
 	$ethnicity = mysqli_real_escape_string($link,$_POST['ethnicity']);
 	$nationality = mysqli_real_escape_string($link,$_POST['nationality']);
@@ -70,8 +68,8 @@
 
 	$sqlFather="INSERT INTO parent(firstname,middlename,lastname,relationship,address,occupation,contactno) VALUES('$fatherFirstname','$fatherMiddlename','$fatherLastname','Father','$fatherAddress','$fatherOccupation','$fatherContact')";
 	$sqlMother="INSERT INTO parent(firstname,middlename,lastname,relationship,address,occupation,contactno) VALUES('$motherFirstname','$motherMiddlename','$motherLastname','Mother','$motherAddress','$motherOccupation','$motherContact')";
-	$sql="INSERT INTO student (firstname,middlename,lastname,birthdate,contactno,permstreet,permbarangay,permcity,permprovince,residencytype,tempstreet,tempbarangay,tempcity,tempprovince,studentid,college,department,level,status,sex,gender,height,weight,complexion,ethnicity,nationality,religion,civilstatus) 
-	VALUES('$firstname','$middlename','$lastname','$birthDate','$contact','$street','$barangay','$city','$province','$residencyType','$boarderStreet','$boarderBarangay','$boarderCity','$boarderProvince','$studentId','$college','$department','$level','$studentStatus','$sex','$gender','$heightCm','$weight','$complexion','$ethnicity','$nationality','$religion','$civilstatus')";	$last_student_id = $link->insert_id;
+	$sql="INSERT INTO student (firstname,middlename,lastname,birthdate,contactno,permstreet,permbarangay,permcity,permprovince,residencytype,tempstreet,tempbarangay,tempcity,tempprovince,studentid,college,department,level,status,sex,gender,heightft,heightin,weight,complexion,ethnicity,nationality,religion,civilstatus) 
+	VALUES('$firstname','$middlename','$lastname','$birthDate','$contact','$street','$barangay','$city','$province','$residencyType','$boarderStreet','$boarderBarangay','$boarderCity','$boarderProvince','$studentId','$college','$department','$level','$studentStatus','$sex','$gender','$heightFt','$heightIn','$weight','$complexion','$ethnicity','$nationality','$religion','$civilstatus')";	$last_student_id = $link->insert_id;
 	
 	if(mysqli_query($link,$sql))
 	{
@@ -118,7 +116,7 @@
 		$message = "Student Added!";
 		echo "	<script type='text/javascript'>
 						alert('$message');
-						window.location='PageStudentProfiling-View.php?id=$studentId';
+						window.location='PageStudentProfiling-View.php?id=$last_student_id';
 					</script>";
 	}
 	else

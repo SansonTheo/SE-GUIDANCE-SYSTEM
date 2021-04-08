@@ -22,7 +22,7 @@
 						Login
 					</p> <br> <br>
 					<form method="post" action="login.php" style="font-size:30px; text-align:center; display:inline;">
-							<input type="text" name="username" placeholder="Username" class="signintextbox"> <br> <br>
+							<input type="text" name="username" placeholder="Email" class="signintextbox"> <br> <br>
 							<input type="password" name="password" placeholder="Password" class="signintextbox"> <br> <br>
 							<input type="Submit" class="generic-button" value="Sign-in" id="Login" style="margin-bottom: 20px; background-color:pink; color:black; width:70px; height:20%;">
 					</form>
